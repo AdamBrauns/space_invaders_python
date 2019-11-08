@@ -33,4 +33,25 @@ player.speed(0)
 player.setposition(0, -250)
 player.setheading(90)
 
-delay = input("Press enter to finish")
+playerspeed = 15
+
+# Move the player left and right
+
+def move_left():
+    x = player.xcor()
+    x -= playerspeed
+    if x >= -280:
+        player.setx(x)
+
+def move_right():
+    x = player.xcor()
+    x += playerspeed
+    if x <= 280:
+        player.setx(x)
+
+# Create keyboard bindings
+wn.listen()
+wn.onkey(move_left, "Left")
+wn.onkey(move_right, "Right")
+
+wn.mainloop()
