@@ -28,3 +28,5 @@ class Player(turtle.Turtle):
         x -= self.movement_speed
         if x >= -self.item_zone_x_y:
             self.setx(x)
+
+    

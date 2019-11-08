@@ -38,6 +38,13 @@ bullet = Bullet()
 
 item_zone_x_y = 280
 
+def fire_bullet():
+    if not bullet.isvisible():
+        x = player.xcor()
+        y = player.ycor() + 10
+        bullet.setposition(x, y)
+        bullet.showturtle()
+
 def isCollision(t1, t2):
     distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
     if distance < 15:
@@ -53,7 +60,7 @@ def step_down(item):
 # Create keyboard bindings
 wn.onkey(player.move_left, "Left")
 wn.onkey(player.move_right, "Right")
-wn.onkey(player.fire_bullet, "space")
+wn.onkey(fire_bullet, "space")
 wn.listen()
 
 while True:
