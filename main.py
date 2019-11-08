@@ -38,13 +38,6 @@ bullet = Bullet()
 
 item_zone_x_y = 280
 
-def fire_bullet():
-    if not bullet.isvisible():
-        x = player.xcor()
-        y = player.ycor() + 10
-        bullet.setposition(x, y)
-        bullet.showturtle()
-
 def isCollision(t1, t2):
     distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
     if distance < 15:
@@ -52,29 +45,16 @@ def isCollision(t1, t2):
     else:
         return False
 
-# Move the player left and right
-def move_left():
-    x = player.xcor()
-    x -= player.movement_speed
-    if x >= -item_zone_x_y:
-        player.setx(x)
-
-def move_right():
-    x = player.xcor()
-    x += player.movement_speed
-    if x <= item_zone_x_y:
-        player.setx(x)
-
 def step_down(item):
     y = item.ycor()
     y -= 40
     item.sety(y)
 
 # Create keyboard bindings
+wn.onkey(player.move_left, "Left")
+wn.onkey(player.move_right, "Right")
+wn.onkey(player.fire_bullet, "space")
 wn.listen()
-wn.onkey(move_left, "Left")
-wn.onkey(move_right, "Right")
-wn.onkey(fire_bullet, "space")
 
 while True:
     x = invader.xcor()
