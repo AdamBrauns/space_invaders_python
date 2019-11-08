@@ -3,6 +3,7 @@
 # Set up the screen
 import turtle
 import os
+import math
 
 # Set up the screen
 wn = turtle.Screen()
@@ -66,6 +67,13 @@ def fire_bullet():
         bullet.setposition(x, y)
         bullet.showturtle()
 
+def isCollision(t1, t2):
+    distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
+    if distance < 15:
+        return True
+    else:
+        return False
+
 # Move the player left and right
 
 def move_left():
@@ -111,5 +119,19 @@ while True:
     # Check to see if the bullet has gone to the top
     if bullet.ycor() > (item_zone_x_y - 5):
         bullet.hideturtle()
+
+    if isCollision(bullet, enemy):
+        # Reset the bullet
+        bullet.hideturtle()
+        # Even though it's invisible, enimies could still hit it
+        bullet.setposition(0,-400)
+        # Reset the enemy
+        enemy.setposition(-200, 250)
+
+    if isCollision(player, enemy):
+        player.hideturtle()
+        enemy.hideturtle()
+        print("Game Over")
+        break
 
 #wn.mainloop()
