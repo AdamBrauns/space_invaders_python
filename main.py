@@ -4,6 +4,9 @@
 import turtle
 import os
 import math
+from invader import Invader
+from player import Player
+from bullet import Bullet
 
 # Set up the screen
 wn = turtle.Screen()
@@ -24,41 +27,16 @@ for side in range(4):
     border_pen.lt(90)
 border_pen.hideturtle()
 
-# Create the player towards the bottom
+# Create the player
+player = Player()
 
-player = turtle.Turtle()
-player.color("blue")
-player.shape("triangle")
-player.penup()
-player.speed(0)
-player.setposition(0, -250)
-player.setheading(90)
-
-# Create the enemy 
-enemy = turtle.Turtle()
-enemy.color("red")
-enemy.shape("circle")
-enemy.penup()
-enemy.speed(0)
-enemy.setposition(-200, 250)
+# Create the invader 
+invader = Invader()
 
 # Create a player bullet
-bullet = turtle.Turtle()
-bullet.color("yellow")
-bullet.shape("triangle")
-bullet.penup()
-bullet.speed(0)
-bullet.setheading(90)
-bullet.shapesize(0.5, 0.5)
-bullet.hideturtle()
+bullet = Bullet()
 
 item_zone_x_y = 280
-
-bullet_speed = 20
-
-enemy_speed = 2
-
-player_speed = 15
 
 def fire_bullet():
     if not bullet.isvisible():
@@ -75,16 +53,15 @@ def isCollision(t1, t2):
         return False
 
 # Move the player left and right
-
 def move_left():
     x = player.xcor()
-    x -= player_speed
+    x -= player.movement_speed
     if x >= -item_zone_x_y:
         player.setx(x)
 
 def move_right():
     x = player.xcor()
-    x += player_speed
+    x += player.movement_speed
     if x <= item_zone_x_y:
         player.setx(x)
 
@@ -100,37 +77,37 @@ wn.onkey(move_right, "Right")
 wn.onkey(fire_bullet, "space")
 
 while True:
-    x = enemy.xcor()
-    x += enemy_speed
-    enemy.setx(x)
-    if enemy.xcor() > item_zone_x_y:
-        step_down(enemy)
-        enemy_speed *= -1
+    x = invader.xcor()
+    x += invader.movement_speed
+    invader.setx(x)
+    if invader.xcor() > item_zone_x_y:
+        step_down(invader)
+        invader.movement_speed *= -1
     
-    if enemy.xcor() < -item_zone_x_y:
-        step_down(enemy)
-        enemy_speed *= -1
+    if invader.xcor() < -item_zone_x_y:
+        step_down(invader)
+        invader.movement_speed *= -1
     
     # Move the bullet
     if bullet.isvisible():
-        y = bullet.ycor() + bullet_speed
+        y = bullet.ycor() + bullet.movement_speed
         bullet.sety(y)
 
     # Check to see if the bullet has gone to the top
     if bullet.ycor() > (item_zone_x_y - 5):
         bullet.hideturtle()
 
-    if isCollision(bullet, enemy):
+    if isCollision(bullet, invader):
         # Reset the bullet
         bullet.hideturtle()
         # Even though it's invisible, enimies could still hit it
         bullet.setposition(0,-400)
-        # Reset the enemy
-        enemy.setposition(-200, 250)
+        # Reset the invader
+        invader.setposition(-200, 250)
 
-    if isCollision(player, enemy):
+    if isCollision(player, invader):
         player.hideturtle()
-        enemy.hideturtle()
+        invader.hideturtle()
         print("Game Over")
         break
 
