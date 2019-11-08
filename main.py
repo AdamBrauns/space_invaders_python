@@ -41,11 +41,30 @@ enemy.penup()
 enemy.speed(0)
 enemy.setposition(-200, 250)
 
+# Create a player bullet
+bullet = turtle.Turtle()
+bullet.color("yellow")
+bullet.shape("triangle")
+bullet.penup()
+bullet.speed(0)
+bullet.setheading(90)
+bullet.shapesize(0.5, 0.5)
+bullet.hideturtle()
+
 item_zone_x_y = 280
+
+bullet_speed = 20
 
 enemy_speed = 2
 
 player_speed = 15
+
+def fire_bullet():
+    if not bullet.isvisible():
+        x = player.xcor()
+        y = player.ycor() + 10
+        bullet.setposition(x, y)
+        bullet.showturtle()
 
 # Move the player left and right
 
@@ -70,6 +89,7 @@ def step_down(item):
 wn.listen()
 wn.onkey(move_left, "Left")
 wn.onkey(move_right, "Right")
+wn.onkey(fire_bullet, "space")
 
 while True:
     x = enemy.xcor()
@@ -82,5 +102,14 @@ while True:
     if enemy.xcor() < -item_zone_x_y:
         step_down(enemy)
         enemy_speed *= -1
+    
+    # Move the bullet
+    if bullet.isvisible():
+        y = bullet.ycor() + bullet_speed
+        bullet.sety(y)
+
+    # Check to see if the bullet has gone to the top
+    if bullet.ycor() > (item_zone_x_y - 5):
+        bullet.hideturtle()
 
 #wn.mainloop()
