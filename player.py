@@ -1,4 +1,5 @@
 import turtle
+from bullet import Bullet
 
 class Player(turtle.Turtle):
 
@@ -7,6 +8,7 @@ class Player(turtle.Turtle):
 
     def __init__(self):
         super().__init__()
+        self.bullet = Bullet()
         self.color("blue")
         self.shape("triangle")
         self.penup()
@@ -29,4 +31,9 @@ class Player(turtle.Turtle):
         if x >= -self.item_zone_x_y:
             self.setx(x)
 
-    
+    def fire_bullet(self):
+        if not self.bullet.isvisible():
+            x = self.xcor()
+            y = self.ycor() + 10
+            self.bullet.setposition(x, y)
+            self.bullet.showturtle()

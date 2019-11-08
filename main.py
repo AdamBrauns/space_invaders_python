@@ -6,7 +6,6 @@ import os
 import math
 from invader import Invader
 from player import Player
-from bullet import Bullet
 
 # Set up the screen
 wn = turtle.Screen()
@@ -33,17 +32,7 @@ player = Player()
 # Create the invader 
 invader = Invader()
 
-# Create a player bullet
-bullet = Bullet()
-
 item_zone_x_y = 280
-
-def fire_bullet():
-    if not bullet.isvisible():
-        x = player.xcor()
-        y = player.ycor() + 10
-        bullet.setposition(x, y)
-        bullet.showturtle()
 
 def isCollision(t1, t2):
     distance = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
@@ -60,7 +49,7 @@ def step_down(item):
 # Create keyboard bindings
 wn.onkey(player.move_left, "Left")
 wn.onkey(player.move_right, "Right")
-wn.onkey(fire_bullet, "space")
+wn.onkey(player.fire_bullet, "space")
 wn.listen()
 
 while True:
@@ -76,19 +65,19 @@ while True:
         invader.movement_speed *= -1
     
     # Move the bullet
-    if bullet.isvisible():
-        y = bullet.ycor() + bullet.movement_speed
-        bullet.sety(y)
+    if player.bullet.isvisible():
+        y = player.bullet.ycor() + player.bullet.movement_speed
+        player.bullet.sety(y)
 
     # Check to see if the bullet has gone to the top
-    if bullet.ycor() > (item_zone_x_y - 5):
-        bullet.hideturtle()
+    if player.bullet.ycor() > (item_zone_x_y - 5):
+        player.bullet.hideturtle()
 
-    if isCollision(bullet, invader):
+    if isCollision(player.bullet, invader):
         # Reset the bullet
-        bullet.hideturtle()
+        player.bullet.hideturtle()
         # Even though it's invisible, enimies could still hit it
-        bullet.setposition(0,-400)
+        player.bullet.setposition(0,-400)
         # Reset the invader
         invader.setposition(-200, 250)
 
