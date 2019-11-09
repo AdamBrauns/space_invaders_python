@@ -1,4 +1,5 @@
 import turtle
+import winsound
 from bullet import Bullet
 
 class Player(turtle.Turtle):
@@ -34,6 +35,7 @@ class Player(turtle.Turtle):
 
     def fire_bullet(self):
         if not self.bullet.isvisible():
+            winsound.PlaySound("shoot2.wav", winsound.SND_ASYNC)
             x = self.xcor()
             y = self.ycor() + 10
             self.bullet.setposition(x, y)

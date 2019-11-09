@@ -5,6 +5,7 @@ import turtle
 import os
 import math
 import random
+import winsound
 from invader import Invader
 from player import Player
 
@@ -99,6 +100,7 @@ while True:
         if isCollision(player.bullet, invader):
             # Reset the bullet
             player.bullet.hideturtle()
+            winsound.PlaySound("invaderkilled.wav", winsound.SND_ASYNC)
             # Even though it's invisible, enimies could still hit it
             player.bullet.setposition(0,-400)
             # Reset the invader
@@ -113,6 +115,7 @@ while True:
         if isCollision(player, invader):
             player.hideturtle()
             invader.hideturtle()
+            winsound.PlaySound("shipexplosion.wav", winsound.SND_ASYNC)
             print("Game Over")
             break
     
