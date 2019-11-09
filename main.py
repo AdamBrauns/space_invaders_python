@@ -54,10 +54,10 @@ def isCollision(t1, t2):
     else:
         return False
 
-def step_down(item):
-    y = item.ycor()
+def step_down(invader):
+    y = invader.ycor()
     y -= 40
-    item.sety(y)
+    invader.sety(y)
 
 # Create keyboard bindings
 wn.onkey(player.move_left, "Left")
@@ -72,12 +72,16 @@ while True:
         x += invader.movement_speed
         invader.setx(x)
         if invader.xcor() > item_zone_x_y:
-            step_down(invader)
-            invader.movement_speed *= -1
+            # Move all invaders down
+            for i in invaders:
+                step_down(i)
+                i.movement_speed *= -1
         
         if invader.xcor() < -item_zone_x_y:
-            step_down(invader)
-            invader.movement_speed *= -1
+            # Move all invaders down
+            for i in invaders:
+                step_down(i)
+                i.movement_speed *= -1
 
         if isCollision(player.bullet, invader):
             # Reset the bullet
