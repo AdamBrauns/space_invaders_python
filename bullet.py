@@ -13,4 +13,5 @@ class Bullet(turtle.Turtle):
         self.speed(0)
         self.setheading(90)
         self.shapesize(1, 1)
+        self.setposition(-500, -500)
         self.hideturtle()
