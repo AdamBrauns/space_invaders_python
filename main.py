@@ -115,7 +115,7 @@ while True:
         if isCollision(player, invader):
             player.hideturtle()
             for i in invaders:
-                invader.hideturtle()
+                i.hideturtle()
             winsound.PlaySound("shipexplosion.wav", winsound.SND_ASYNC)
             print("Game Over")
             break
