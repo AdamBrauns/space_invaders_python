@@ -15,6 +15,7 @@ class Player(turtle.Turtle):
         self.shape("ship.gif")
         self.penup()
         self.speed(0)
+        self.shapesize(2, 2)
         self.setposition(0, -250)
         self.setheading(90)
     
