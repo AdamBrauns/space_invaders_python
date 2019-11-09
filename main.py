@@ -27,6 +27,18 @@ for side in range(4):
     border_pen.lt(90)
 border_pen.hideturtle()
 
+# Set the score to 0
+score = 0
+
+score_pen = turtle.Turtle()
+score_pen.speed(0)
+score_pen.color("white")
+score_pen.penup()
+score_pen.setposition(-290, 270)
+score_string = f'Score: {score}'
+score_pen.write(score_string, False, align="left", font=("Arial", 14, "normal"))
+score_pen.hideturtle()
+
 # Create the player
 player = Player()
 
@@ -92,6 +104,10 @@ while True:
             x = random.randint(-200, 200)
             y = random.randint(100, 250)
             invader.setposition(x, y)
+            score += 10
+            score_string = f'Score: {score}'
+            score_pen.clear()
+            score_pen.write(score_string, False, align="left", font=("Arial", 14, "normal"))
 
         if isCollision(player, invader):
             player.hideturtle()
