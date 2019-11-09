@@ -4,6 +4,7 @@
 import turtle
 import os
 import math
+import random
 from invader import Invader
 from player import Player
 
@@ -29,8 +30,20 @@ border_pen.hideturtle()
 # Create the player
 player = Player()
 
+# Choose a number of invaders
+number_of_invaders = 5
+
+# Create an empty list of ememies
+invaders = []
+
+# Add invaders to list
+for i in range(number_of_invaders):
+    x = random.randint(-200, 200)
+    y = random.randint(100, 250)
+    invaders.append(Invader(x,y))
+
 # Create the invader 
-invader = Invader()
+#invader = Invader()
 
 item_zone_x_y = 280
 
@@ -53,16 +66,34 @@ wn.onkey(player.fire_bullet, "space")
 wn.listen()
 
 while True:
-    x = invader.xcor()
-    x += invader.movement_speed
-    invader.setx(x)
-    if invader.xcor() > item_zone_x_y:
-        step_down(invader)
-        invader.movement_speed *= -1
-    
-    if invader.xcor() < -item_zone_x_y:
-        step_down(invader)
-        invader.movement_speed *= -1
+
+    for invader in invaders:
+        x = invader.xcor()
+        x += invader.movement_speed
+        invader.setx(x)
+        if invader.xcor() > item_zone_x_y:
+            step_down(invader)
+            invader.movement_speed *= -1
+        
+        if invader.xcor() < -item_zone_x_y:
+            step_down(invader)
+            invader.movement_speed *= -1
+
+        if isCollision(player.bullet, invader):
+            # Reset the bullet
+            player.bullet.hideturtle()
+            # Even though it's invisible, enimies could still hit it
+            player.bullet.setposition(0,-400)
+            # Reset the invader
+            x = random.randint(-200, 200)
+            y = random.randint(100, 250)
+            invader.setposition(x, y)
+
+        if isCollision(player, invader):
+            player.hideturtle()
+            invader.hideturtle()
+            print("Game Over")
+            break
     
     # Move the bullet
     if player.bullet.isvisible():
@@ -72,19 +103,5 @@ while True:
     # Check to see if the bullet has gone to the top
     if player.bullet.ycor() > (item_zone_x_y - 5):
         player.bullet.hideturtle()
-
-    if isCollision(player.bullet, invader):
-        # Reset the bullet
-        player.bullet.hideturtle()
-        # Even though it's invisible, enimies could still hit it
-        player.bullet.setposition(0,-400)
-        # Reset the invader
-        invader.setposition(-200, 250)
-
-    if isCollision(player, invader):
-        player.hideturtle()
-        invader.hideturtle()
-        print("Game Over")
-        break
 
 #wn.mainloop()
