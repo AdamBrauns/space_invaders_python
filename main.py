@@ -100,7 +100,7 @@ while True:
         if isCollision(player.bullet, invader):
             # Reset the bullet
             player.bullet.hideturtle()
-            winsound.PlaySound("invaderkilled.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("sounds/invaderkilled.wav", winsound.SND_ASYNC)
             # Even though it's invisible, enimies could still hit it
             player.bullet.setposition(0,-400)
             # Reset the invader
@@ -116,7 +116,7 @@ while True:
             player.hideturtle()
             for i in invaders:
                 i.hideturtle()
-            winsound.PlaySound("shipexplosion.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("sounds/shipexplosion.wav", winsound.SND_ASYNC)
             print("Game Over")
             break
     
