@@ -7,19 +7,29 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Create title and icon
-pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load("images/ufo.png")
+pygame.display.set_caption('Space Invaders')
+icon = pygame.image.load('images/ufo.png')
 pygame.display.set_icon(icon)
 
-# Player image
+# Player
 playerImg = pygame.image.load('images/player2.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
 
+# Enemy
+enemyImg = pygame.image.load('images/enemy.png')
+enemyX = 370
+enemyY = 50
+enemyX_change = 0
+
 def player(x, y):
     # Blit is used to draw on screen
     screen.blit(playerImg, (x, y))
+
+def enemy(x, y):
+    # Blit is used to draw on screen
+    screen.blit(enemyImg, (x, y))
 
 # Game Loop
 running = True
@@ -48,4 +58,5 @@ while True:
         playerX = 736
 
     player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
