@@ -6,9 +6,9 @@ class Invader(turtle.Turtle):
 
     def __init__(self, x, y):
         super().__init__()
-        turtle.register_shape("invader.gif")
+        turtle.register_shape("images/invader.gif")
         self.color("red")
-        self.shape("invader.gif")
+        self.shape("images/invader.gif")
         self.penup()
         self.speed(0)
         self.shapesize(1, 1)

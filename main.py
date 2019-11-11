@@ -13,7 +13,7 @@ from player import Player
 wn = turtle.Screen()
 wn.bgcolor("black")
 wn.title("Space Invaders")
-wn.bgpic("background.gif")
+wn.bgpic("images/background.gif")
 
 # Draw boarder
 border_pen = turtle.Turtle()

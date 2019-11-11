@@ -6,9 +6,9 @@ class Bullet(turtle.Turtle):
 
     def __init__(self):
         super().__init__()
-        turtle.register_shape("laser.gif")
+        turtle.register_shape("images/laser.gif")
         self.color("yellow")
-        self.shape("laser.gif")
+        self.shape("images/laser.gif")
         self.penup()
         self.speed(0)
         self.setheading(90)

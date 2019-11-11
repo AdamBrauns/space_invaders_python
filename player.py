@@ -9,10 +9,10 @@ class Player(turtle.Turtle):
 
     def __init__(self):
         super().__init__()
-        turtle.register_shape("ship.gif")
+        turtle.register_shape("images/ship.gif")
         self.bullet = Bullet()
         self.color("blue")
-        self.shape("ship.gif")
+        self.shape("images/ship.gif")
         self.penup()
         self.speed(0)
         self.shapesize(2, 2)
