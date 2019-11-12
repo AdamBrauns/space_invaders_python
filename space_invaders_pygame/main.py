@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 # Initialize the pygame
 pygame.init()
@@ -23,7 +24,7 @@ playerX_change = 0
 
 # Enemy
 enemyImg = pygame.image.load('images/enemy.png')
-enemyX = random.randint(0, 800)
+enemyX = random.randint(0, 735)
 enemyY = random.randint(50, 150)
 enemyX_change = 4
 enemyY_change = 40
@@ -38,6 +39,8 @@ bulletY_change = 10
 # 'fire' - The bullet is currently moving
 bulletState = 'ready' 
 
+score = 0
+
 def player(x, y):
     # Blit is used to draw on screen
     screen.blit(playerImg, (x, y))
@@ -51,6 +54,13 @@ def fire_bullet(x, y):
     # Blit is used to draw on screen
     bulletState = 'fire'
     screen.blit(bulletImg, (x + 16, y + 10)) # Fire from the middle of the space ship 
+
+def isCollision(enemyX, enemyY, bulletX, bulletY):
+    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + math.pow(enemyY - bulletY, 2))
+    # 27 was decided by trial and error
+    if distance < 27:
+        return True
+    return False
 
 # Game Loop
 running = True
@@ -107,6 +117,16 @@ while running:
     if bulletState is 'fire':
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
+
+    # Collision
+    collision = isCollision(enemyX, enemyY, bulletX, bulletY)
+    if collision:
+        bulletY = 480
+        bulletState = 'ready'
+        score += 1
+        print(score)
+        enemyX = random.randint(0, 735)
+        enemyY = random.randint(50, 150)
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
