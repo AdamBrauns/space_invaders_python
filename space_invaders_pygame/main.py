@@ -54,7 +54,7 @@ def fire_bullet(x, y):
 
 # Game Loop
 running = True
-while True:
+while running:
     # RGB - Red, Green, Blue (goes up to 255)
     screen.fill((0, 0, 0))
 
@@ -63,6 +63,8 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            pygame.quit()
+            quit()
 
         # If keystroke is pressed check if it is right or left
         if event.type == pygame.KEYDOWN:
@@ -72,6 +74,7 @@ while True:
                 playerX_change = 5
             if event.key == pygame.K_SPACE:
                 if bulletState is 'ready':
+                    # Get the current x cord of the player
                     bulletX = playerX
                     fire_bullet(playerX, bulletY)
 
